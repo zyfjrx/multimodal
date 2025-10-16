@@ -40,7 +40,7 @@ class PatchEmbedding(nn.Module):
         x = self.linear_project(x)
         #(B, C, H, W) -> (B, d_model, P_col, P_row)
         # d_model是每个补丁的嵌入维度3x16x16=768
-        print(x)
+        # print(x)
         x = x.flatten(2) #拉成一维
         # (B, d_model, P_col, P_row) -> (B, d_model, P)
         x = x.transpose(1, 2) #转置
@@ -215,7 +215,7 @@ n_channels = 1 # 灰度图片通道数量为1
 n_heads = 3 # 3个注意力头
 n_layers = 3 # 3层编码器
 batch_size = 128 # 每个批次128张图片
-epochs = 5 # 训练5个epoch
+epochs = 1 # 训练5个epoch
 alpha = 0.005 # 学习率5e-3
 transform = T.Compose([
     T.Resize(img_size), # 28x28 --> 32x32
@@ -268,7 +268,7 @@ for epoch in range(epochs):
     print(f'Epoch {epoch + 1}/{epochs} loss: {training_loss  / len(train_loader) :.3f}')
 correct = 0
 total = 0
-
+ViT._save_to_state_dict()
 with torch.no_grad():
     for data in test_loader:
         images, labels = data
